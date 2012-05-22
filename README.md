@@ -1,2 +1,1 @@
-goldgalaxy
-==========
+#.COMMAND Architecture Prototype
