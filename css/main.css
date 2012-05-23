@@ -51,12 +51,40 @@ form {
 	padding: 10px 0;
 }
 
-input[type=text] {
+input[type=text],
+input[type=password] {
 	width: 270px;
 }
 
 label {
 	font-size: 12px;
+}
+
+fieldset {
+    width: 400px;
+	margin: 1em 0px;
+	padding: 1em;
+	border: 1px solid #000;
+	position: relative;
+}
+
+/*
+fieldset p  {
+	margin: 2px 12px 10px 10px;
+}
+fieldset.login label, fieldset.register label, fieldset.changePassword label {
+	display: block;
+}
+
+fieldset label.inline {
+	display: inline;
+}
+*/
+
+legend {
+    font-size: 1.1em;
+	font-weight: 600;
+	padding: 2px 4px 8px 4px;    
 }
 
 /* -------------------------------------------
@@ -138,6 +166,17 @@ label {
 	color: #666;
 	font-size: 12px;
 	padding: 10px;
+}
+
+#footer-user {
+    text-align: left;
+}
+
+/* -------------------------------------------
+		LOGON
+----------------------------------------------  */
+#user-info {
+    padding: 5px;
 }
 
 /* -------------------------------------------
