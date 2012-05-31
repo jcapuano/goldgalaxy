@@ -45,7 +45,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	
 	<!-- sizeit.js for screen size detection. http://johnpolacek.com/sizeit -->	
-	<script src="js/sizeit.min.js"></script>
+	<script src="js/lib/sizeit.min.js"></script>
 	<script>
 		sizeit.configure(
 			{
@@ -72,17 +72,15 @@
 		</div>
         
         <div id="error">
-			<p id="error-display" class="error-text"></p>
+			<p id="error-display" class="error-text" data-bind="text: Error, visible: Error().length > 0">should not see this</p>
 		</div>
 		
         <div id="footer">
-			<p id="error-display" class="error-text"></p>
-			<div id="footer-user">
-			</div>
 			<div id="footer-links">
+				<span id="footer-user"></span>
 				<a href="#" id="button-about">About</a>
 				<a href="http://www.commandalkon.com/contact.asp" id="button-contact" target="_blank">Contact</a>
-				<a href="#" id="button-signout">Sign Out</a>
+				<a href="#" id="button-signout" data-bind="click: signOut, visible: User() != null">Sign Out</a>
 			</div>
             <p>Remarkable products for the Construction Materials Industry by <a href="http://www.commandalkon.com">Command Alkon, Inc</a></p>
         </div>
@@ -90,27 +88,28 @@
     </div>
     
 	<!-- TEMPLATES -->
-    <script id="logonTemplate" type="text/x-jQuery-tmpl">
+    <script id="logonTemplate" type="text/x-handlebars-template">
 		<div id="logon" class="page">
 			<h1>Welcome</h1>
-			<form id="form-logon">
+			<form id="form-logon" data-bind="submit: logon">
 				<fieldset>
 					<legend>Please Log on</legend>
 					<p>
 						<label for="logon-username">Username: </label>
-						<input type="text" id="logon-username" name="username">
+						<input type="text" id="logon-username" name="username" data-bind="value: userName">
 					</p>
 					<p>
 						<label for="logon-password">Password: </label>
-						<input type="password" id="logon-password" name="password">
+						<input type="password" id="logon-password" name="password" data-bind="value: userPassword">
 					</p>
-					<a href="#" class="button submit-button" id="logon-submit">Log on</a>
+					<button id="logon-submit" type="submit" class="submit-button">Log On</button>
+					<!--a href="#" class="button submit-button" id="logon-submit">Log on</a-->
 				</fieldset>
 			</form>
 		</div>
     </script>
 	
-    <script id="dashboardTemplate" type="text/x-jQuery-tmpl">
+    <script id="dashboardTemplate" type="text/x-handlebars-template">
 		<div id="dashboard">
 			<div id="dashboarddetail" class="dashboarddetail">
 				<h2 class="dashboarddetailpanel">Dashbboard Graphs here</h2>
@@ -121,13 +120,16 @@
 		</div>
     </script>
 	
-    <script id="userTemplate" type="text/x-jQuery-tmpl">
+    <script id="userTemplate" type="text/x-handlebars-template">
 		<div id="user-info">
 			<small>
-				${Username}: 
-				{{each(i, role) Roles}}            
-					<em>${role.Name}{{if i < Roles.length-1}}, {{/if}}</em>
-				{{/each}}
+				<strong>{{Username}}: </strong>
+				<em>
+				{{#roles Roles}}{{Name}}
+				{{else}}
+					No roles assigned
+				{{/roles}}
+				</em>
 			</small>
 		</div>
     </script>
@@ -135,11 +137,16 @@
 	
 	<!-- JAVASCRIPT -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<!--script src="http://code.jquery.com/jquery-1.5.2.min.js"></script-->
-	<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
-	<script src="js/jquery.address-1.4.min.js"></script>
-	<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
-	<script src="js/cai.useridentity.js"></script>
+	<script>window.jQuery || document.write('<script src="js/lib/jquery-1.7.2.min.js"><\/script>')</script>
+	<script src="js/lib/jquery.address-1.4.min.js"></script>
+	<script src="js/lib/jquery.json-2.3.min.js"></script>
+	<script src="js/lib/knockout-2.0.0.js"></script>
+	<script src="js/lib/handlebars-1.0.0.beta.6.js"></script>
+	
+	<script src="js/utils/cai.log.js"></script>
+	<script src="js/models/cai.userIdentity.js"></script>
+	<script src="js/viewmodels/cai.appViewModel.js"></script>
+	<script src="js/viewmodels/cai.logonViewModel.js"></script>
 	<script src="js/app.js"></script>
   
 </body>
